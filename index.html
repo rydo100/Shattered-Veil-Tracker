@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        .container { display: flex; justify-content: center; gap: 50px; }
+        .section { border: 1px solid #ccc; padding: 20px; border-radius: 10px; }
+        .options button { margin: 5px; padding: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Round Calculator</h2>
+    <div class="container">
+        <div class="section">
+            <h3>Elders</h3>
+            <input type="number" id="eldersInput" value="100">
+            <button onclick="calculate('elders')">Calculate</button>
+            <div id="eldersResults" class="options"></div>
+        </div>
+        <div class="section">
+            <h3>Toxic</h3>
+            <input type="number" id="toxicInput" value="100">
+            <button onclick="calculate('toxic')">Calculate</button>
+            <div id="toxicResults" class="options"></div>
+        </div>
+    </div>
+    
+    <script>
+        function calculate(type) {
+            let input = document.getElementById(type + "Input").value;
+            let base = parseInt(input);
+            let resultsDiv = document.getElementById(type + "Results");
+            resultsDiv.innerHTML = "";
+            
+            let rounds = type === "elders" ? [3, 4, 5] : [5, 6, 7];
+            rounds.forEach(round => {
+                let newRound = base + round;
+                let btn = document.createElement("button");
+                btn.innerText = newRound;
+                btn.onclick = function() {
+                    document.getElementById(type + "Input").value = newRound;
+                    calculate(type);
+                };
+                resultsDiv.appendChild(btn);
+            });
+        }
+    </script>
+</body>
+</html>
